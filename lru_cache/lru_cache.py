@@ -3,6 +3,7 @@
 # A cache is a structure of data used for quick data reference. DLL --> Fast Lookup, Fast removal
 # 0 1 2 3 4 5 6 7 8 9 10
 # KeyError exception used when key does not exist in dict.
+
 import _collections
 
 class LRUCache:
@@ -32,13 +33,7 @@ class LRUCache:
         except KeyError:
             return None
 
-    # def get(self, key):
-    #   	if key in self.storage:
-    #   		node = self.storage[key]
-    #   		self.list.move_to_end(node)
-    #   		return node.val[1]
-    # 		else:
-    # 			return None
+
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -58,16 +53,3 @@ class LRUCache:
                 self.cache.popitem(last=False)
         self.cache[key] = value
 
-    # def set(self, key, val):
-    #   	if key in self.storage[key]:
-    #   		node = self.storage[key]
-    #   		node.val = (key, val)
-    #   		self.list.move_to_end(node)
-    # 			return
-    #   	if self.size == self.limit:
-    #   		del self.storage[self.list.head.val[0]]
-    #   		self.list.shift()
-    # 			self.size -= 1
-    #   	self.list.add_to_tail((key, val))
-    #   	self.storage[key] = self.list.tail
-    # 		self.size += 1
