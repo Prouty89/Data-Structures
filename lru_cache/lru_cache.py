@@ -1,3 +1,11 @@
+# Least Recently Used 1 2 3 4 -- Add 0 adds to front, evict an item based on the evict policy least recently used is 4.
+# When we access a value in the new cache 0 1 2 3 the item moves to the front of the cache, it is the most accessed item
+# A cache is a structure of data used for quick data reference. DLL --> Fast Lookup, Fast removal
+# 0 1 2 3 4 5 6 7 8 9 10
+# KeyError exception used when key does not exist in dict.
+
+import _collections
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +15,8 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.cache = _collections.OrderedDict()
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +26,14 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        try:
+            value = self.cache.pop(key)
+            self.cache[key] = value
+            return value
+        except KeyError:
+            return None
+
+
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +46,10 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        try:
+            self.cache.pop(key)
+        except KeyError:
+            if len(self.cache) >= self.limit:
+                self.cache.popitem(last=False)
+        self.cache[key] = value
+
